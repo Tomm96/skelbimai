@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    {% if is_granted('ROLE_USER') %}
+        {% form_theme form 'bootstrap_3_layout.html.twig' %}
+        {{ form_start(form) }}
+        {{ form_row(form.title) }}
+        {{ form_row(form.description) }}
 
-    {% form_theme form 'bootstrap_3_layout.html.twig' %}
-    {{ form_start(form) }}
-    {{ form_row(form.title) }}
-    {{ form_row(form.description) }}
-
-    <button type="submit">Skelbti!</button>
-    {{ form_end(form) }}
-
+        <button type="submit">Skelbti!</button>
+        {{ form_end(form) }}
+    {% endif %}
 {% endblock %}

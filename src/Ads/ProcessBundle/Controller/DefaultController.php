@@ -16,30 +16,33 @@ class DefaultController extends Controller
      */
     public function addAction(Request $request)
     {
-        // just setup a fresh $task object (remove the dummy data)
-        $ad = new Advertisement();
+        if ($this->getUser()) {
+            $ad = new Advertisement();
 
-        $form = $this->createFormBuilder($ad)
-            ->add('title', TextType::class, array('label' => 'Pavadinimas'))
-            ->add('description', TextareaType::class, array('label' => 'Aprašymas'))
-            ->getForm();
+            $form = $this->createFormBuilder($ad)
+                ->add('title', TextType::class, array('label' => 'Pavadinimas'))
+                ->add('description', TextareaType::class, array('label' => 'Aprašymas'))
+                ->getForm();
 
-        $form->handleRequest($request);
+            $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->isSubmitted() && $form->isValid()) {
 
-            $ad->setPostingDate(date("Y-m-d H:i:s"));
-            $ad->setUserAdded($this->getUser());
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($ad);
-            $em->flush();
+                $ad->setPostingDate(date("Y-m-d H:i:s"));
+                $ad->setUserAdded($this->getUser());
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($ad);
+                $em->flush();
 
 
+                return $this->redirectToRoute('home_page');
+            }
+
+            return $this->render('AdsProcessBundle:Default:addContent.html.twig', array(
+                'form' => $form->createView(),
+            ));
+        } else {
             return $this->redirectToRoute('home_page');
         }
-
-        return $this->render('AdsProcessBundle:Default:addContent.html.twig', array(
-            'form' => $form->createView(),
-        ));
     }
 }

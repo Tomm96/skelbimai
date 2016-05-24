@@ -26,9 +26,6 @@
 .logo a:hover, .logo a:link, .logo a:visited {
     color: white;
 }
-
-
-
 .row {
     display: -webkit-box;
     display: -webkit-flex;

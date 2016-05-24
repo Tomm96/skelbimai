@@ -25,20 +25,15 @@ class DefaultController extends Controller
      */
     public function userContent()
     {
+        if ($this->getUser()) {
+            $ads = $this->getDoctrine()->getRepository('AdsProcessBundle:Advertisement')->findBy(['userAdded' => $this->getUser()]);
 
-        $ads = $this->getDoctrine()->getRepository('AdsProcessBundle:Advertisement')->findBy(['userAdded' => $this->getUser()]);
+            return $this->render('AdsFrontendBundle:Default:myContent.html.twig', array(
+                'ads' => $ads
+            ));
+        } else {
+            return $this->redirectToRoute('home_page');
+        }
 
-        return $this->render('AdsFrontendBundle:Default:myContent.html.twig', array(
-            'ads' => $ads
-        ));
     }
-
-//
-//    /**
-//     * @Route("/registracija/")
-//     */
-//    public function regAction()
-//    {
-//        return $this->render('AdsFrontendBundle:Default:registration.html.twig');
-//    }
 }

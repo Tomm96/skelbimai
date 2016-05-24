@@ -1,29 +1,32 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Mano skelbimai</h1>
+    {% if is_granted('ROLE_USER') %}
+        <h1>Mano skelbimai</h1>
 
-    {% if ads %}
-        {% for item in ads %}
-            <div class="col-md-8 post">
-                <div class="row title">
-                    <div class="col-xs-12 col-sm-6 col-md-10">
-                        <h3> {{ item.title }} </h3>
+        {% if ads %}
+            {% for item in ads %}
+                <div class="col-md-8 post">
+                    <div class="row title">
+                        <div class="col-xs-12 col-sm-6 col-md-10">
+                            <h3> {{ item.title }} </h3>
+                        </div>
+
+                        <div class="col-xs-6 col-md-2">
+                            <span class="label label-info date">{{ item.postingDate }}</span>
+                        </div>
                     </div>
+                    <p> {{ item.description }}</p>
 
-                    <div class="col-xs-6 col-md-2">
-                        <span class="label label-info date">{{ item.postingDate }}</span>
+                    <div class="author pull-right">
+                        Autorius: <b>{{ app.user.username }}</b>
                     </div>
                 </div>
-                <p> {{ item.description }}</p>
-
-                <div class="author pull-right">
-                    Autorius: <b>{{ app.user.username }}</b>
-                </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        {% else %}
+            Šiuo metu Jūs neturite jokių skelbimų...
+        {% endif %}
     {% else %}
-        Šiuo metu Jūs neturite jokių skelbimų...
-    {% endif %}
 
+    {% endif %}
 {% endblock %}
