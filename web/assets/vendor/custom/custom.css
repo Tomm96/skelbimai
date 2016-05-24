@@ -1,0 +1,42 @@
+.title {
+    color: white;
+    text-shadow: 2px 1px 2px black;
+    background: #48ffa4;
+    padding-left: 15px;
+    padding-bottom: 5px;
+    border-top: 5px solid #363636;
+    border-right: 3px solid #363636;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.post {
+    margin-bottom: 50px;
+}
+.date {
+    padding: 20px 50px 20px 10px;
+    margin-top: 3px;
+    font-size: 12px;
+    text-shadow: none;
+}
+.btn {
+    white-space: normal;
+}
+
+.logo a:hover, .logo a:link, .logo a:visited {
+    color: white;
+}
+
+
+
+.row {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display:         flex;
+    flex-wrap: wrap;
+}
+.row > [class*='col-'] {
+    display: flex;
+    flex-direction: column;
+}

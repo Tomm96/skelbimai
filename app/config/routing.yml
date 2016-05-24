@@ -1,0 +1,13 @@
+ads_process:
+    resource: "@AdsProcessBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+ads_frontend:
+    resource: "@AdsFrontendBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation

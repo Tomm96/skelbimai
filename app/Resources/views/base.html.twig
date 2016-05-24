@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/dist/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/dist/css/simple-sidebar.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/vendor/custom/custom.css') }}">
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        {% block javascripts %}{% endblock %}
+        <div id="wrapper">
+
+            <!-- Sidebar -->
+            <div id="sidebar-wrapper" style="padding: 20px;">
+                <div class="center-block" style="color: white">
+                    <div class="logo">
+                        <h2><a href="/" style="text-decoration: none;"><b><i class="glyphicon glyphicon-bullhorn" ></i> Skelbimų</b> portalas</a></h2>
+                    </div>
+
+                    <br />
+                    {% if is_granted('ROLE_USER') %}
+                        Prisijungėte kaip <b>{{ app.user.username }}</b>
+
+                        <a class="btn btn-lg btn-block btn-success" href="../add-content" role="button"><i class="glyphicon glyphicon-plus-sign"></i> Pridėti skelbimą</a>
+                        <a class="btn btn-lg btn-block btn-info" href="../my-content" role="button"><i class="glyphicon glyphicon-th-list"></i> Peržiūrėti savo skelbimus</a>
+
+                        <div style="position: absolute; bottom: 15px;">
+                            <a class="btn btn-lg btn-block btn-danger" href="../logout" role="button"><i class="glyphicon glyphicon-off"></i> Atsijungti</a>
+                        </div>
+
+                    {% else %}
+                        <p>
+                            Norėdami įkelti savo skelbimą, būtina prisijungti.
+                        </p>
+                        <a href="/register" role="button" class="btn btn-success btn-lg btn-block">Registracija</a>
+                        <a href="/login" role="button" class="btn btn-default btn-lg btn-block">Prisijungti</a>
+                    {% endif %}
+
+                </div>
+            </div>
+            <!-- /#sidebar-wrapper -->
+
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            {% block body %}{% endblock %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /#page-content-wrapper -->
+
+        </div>
+        <!-- /#wrapper -->
+
+        <!-- jQuery -->
+        <script src="js/jquery.js"></script>
+
+        <!-- Bootstrap Core JavaScript -->
+        <script src="js/bootstrap.min.js"></script>
+
+        <!-- Menu Toggle Script -->
+        <script>
+            $("#menu-toggle").click(function(e) {
+                e.preventDefault();
+                $("#wrapper").toggleClass("toggled");
+            });
+        </script>
+    </body>
+</html>
